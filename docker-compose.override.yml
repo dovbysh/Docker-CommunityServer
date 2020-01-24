@@ -1,0 +1,37 @@
+version: '3'
+services:
+  onlyoffice-community-server:
+    ports:
+      - '11080:80'
+      - '11443:443'
+      - '15222:5222'
+    expose:
+      - '80'
+      - '443'
+      - '5222'
+    volumes:
+      - community_data:/var/www/onlyoffice/Data
+      - community_log:/var/log/onlyoffice
+      - document_data:/var/www/onlyoffice/DocumentServerData
+      - certs:/var/www/onlyoffice/Data/certs
+  onlyoffice-document-server:
+    volumes:
+      - document_data:/var/www/onlyoffice/Data
+      - document_log:/var/log/onlyoffice
+      - document_fonts:/usr/share/fonts/truetype/custom
+      - document_forgotten:/var/lib/onlyoffice/documentserver/App_Data/cache/files/forgotten
+    ports:
+      - '12080:80'
+      - '12443:443'
+volumes:
+  mail_data:
+  mail_certs:
+  mail_log:
+  document_data:
+  document_log:
+  document_forgotten:
+  document_fonts:
+  community_data:
+  community_log:
+  mysql_data:
+  certs:
